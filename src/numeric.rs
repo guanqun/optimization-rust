@@ -1,7 +1,7 @@
 use std::f64::EPSILON;
 
-use problems::Problem;
-use types::{Function, Function1};
+use crate::{Function, Function1};
+use crate::problems::Problem;
 
 
 /// Wraps a function for which to provide numeric differentiation.
@@ -103,6 +103,9 @@ mod tests {
     use gd::GradientDescent;
 
     use super::NumericalDifferentiation;
+    use crate::problems::{Rosenbrock, Problem};
+    use crate::Function1;
+    use crate::utils::are_close;
 
     #[test]
     fn test_accuracy() {

@@ -15,8 +15,7 @@
 use rand::random;
 use std::f64::INFINITY;
 use std::ops::Add;
-
-use types::{Function, Function1};
+use crate::Function;
 
 
 /// Specifies a well known optimization problem.
@@ -69,7 +68,7 @@ macro_rules! define_problem {
             }
         }
 
-        impl Function1 for $name {
+        impl crate::Function1 for $name {
             fn gradient(&$this, $x2: &[f64]) -> Vec<f64> {
                 assert!($this.is_legal_position($x2));
 

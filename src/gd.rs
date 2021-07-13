@@ -1,8 +1,11 @@
 use log::Level::Trace;
+use crate::{ArmijoLineSearch, LineSearch, Minimizer, Function1};
+use crate::types::Solution;
+use crate::utils::is_saddle_point;
 
-use types::{Function1, Minimizer, Solution};
-use line_search::{LineSearch, ArmijoLineSearch};
-use utils::is_saddle_point;
+// use types::{Function1, Minimizer, Solution};
+// use line_search::{LineSearch, ArmijoLineSearch};
+// use utils::is_saddle_point;
 
 
 /// A simple Gradient Descent optimizer.
@@ -62,18 +65,18 @@ impl<F: Function1, S: LineSearch> Minimizer<F> for GradientDescent<S>
     type Solution = Solution;
 
     fn minimize(&self, function: &F, initial_position: Vec<f64>) -> Solution {
-        info!("Starting gradient descent minimization: gradient_tolerance = {:?},
+        println!("Starting gradient descent minimization: gradient_tolerance = {:?},
             max_iterations = {:?}, line_search = {:?}",
             self.gradient_tolerance, self.max_iterations, self.line_search);
 
         let mut position = initial_position;
         let mut value = function.value(&position);
 
-        if log_enabled!(Trace) {
+        // if log_enabled!(Trace) {
             info!("Starting with y = {:?} for x = {:?}", value, position);
-        } else {
-            info!("Starting with y = {:?}", value);
-        }
+        // } else {
+        //     info!("Starting with y = {:?}", value);
+        // }
 
         let mut iteration = 0;
 
@@ -81,7 +84,7 @@ impl<F: Function1, S: LineSearch> Minimizer<F> for GradientDescent<S>
             let gradient = function.gradient(&position);
 
             if is_saddle_point(&gradient, self.gradient_tolerance) {
-                info!("Gradient to small, stopping optimization");
+                println!("Gradient to small, stopping optimization");
 
                 return Solution::new(position, value);
             }
@@ -95,11 +98,11 @@ impl<F: Function1, S: LineSearch> Minimizer<F> for GradientDescent<S>
 
             iteration += 1;
 
-            if log_enabled!(Trace) {
-                debug!("Iteration {:6}: y = {:?}, x = {:?}", iteration, value, position);
-            } else {
-                debug!("Iteration {:6}: y = {:?}", iteration, value);
-            }
+            // if log_enabled!(Trace) {
+                info!("Iteration {:6}: y = {:?}, x = {:?}", iteration, value, position);
+            // } else {
+            //     debug!("Iteration {:6}: y = {:?}", iteration, value);
+            // }
 
             let reached_max_iterations = self.max_iterations.map_or(false,
                     |max_iterations| iteration == max_iterations);

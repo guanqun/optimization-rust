@@ -7,12 +7,16 @@ description = "Collection of optimization algorithms"
 repository = "https://github.com/b52/optimization-rust"
 readme = "README.md"
 keywords = ["optimization", "minimization", "numeric"]
+edition = "2018"
 
 [dependencies]
 log = "0.4"
 rand = "0.7"
 rand_distr = "0.2"
 rand_pcg = "0.2"
+primitive-types = { version = "0.9.0", features = ["fp-conversion"] }
 
 [dev-dependencies]
 env_logger = "0.7"
+primitive-types = { version = "0.9.0", features = ["fp-conversion"] }
+u256-literal = "0.1.0"

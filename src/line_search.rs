@@ -1,7 +1,8 @@
 use std::fmt::Debug;
 use std::ops::Add;
 
-use types::{Function, Function1};
+// use types::{Function, Function1};
+use crate::{Function1, Function};
 
 
 /// Define a line search method, i.e., choosing an appropriate step width.

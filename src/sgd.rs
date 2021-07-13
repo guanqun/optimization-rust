@@ -2,8 +2,10 @@ use log::Level::Trace;
 use rand::{SeedableRng, random};
 use rand::seq::SliceRandom;
 use rand_pcg::Pcg64Mcg;
+use crate::{Minimizer, Function, Summation1};
+use crate::types::Solution;
 
-use types::{Minimizer, Solution, Summation1};
+// use crate::{Minimizer, Solution, Summation1};
 
 
 /// Provides _stochastic_ Gradient Descent optimization.
@@ -78,11 +80,11 @@ impl<F: Summation1> Minimizer<F> for StochasticGradientDescent {
         let mut position = initial_position;
         let mut value = function.value(&position);
 
-        if log_enabled!(Trace) {
+        // if log_enabled!(Trace) {
             info!("Starting with y = {:?} for x = {:?}", value, position);
-        } else {
-            info!("Starting with y = {:?}", value);
-        }
+        // } else {
+        //     info!("Starting with y = {:?}", value);
+        // }
 
         let mut iteration = 0;
         let mut terms: Vec<_> = (0..function.terms()).collect();
@@ -105,11 +107,11 @@ impl<F: Summation1> Minimizer<F> for StochasticGradientDescent {
 
             iteration += 1;
 
-            if log_enabled!(Trace) {
+            // if log_enabled!(Trace) {
                 debug!("Iteration {:6}: y = {:?}, x = {:?}", iteration, value, position);
-            } else {
-                debug!("Iteration {:6}: y = {:?}", iteration, value);
-            }
+            // } else {
+            //     debug!("Iteration {:6}: y = {:?}", iteration, value);
+            // }
 
             let reached_max_iterations = self.max_iterations.map_or(false,
                 |max_iterations| iteration == max_iterations);
